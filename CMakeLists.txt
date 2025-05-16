@@ -8,8 +8,7 @@ project (BaseVar VERSION 1.2.0 LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)  # C++ 17
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -fPIC")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -fPIC -Wl,-no_compact_unwind")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -fPIC")
 
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 
@@ -27,11 +26,12 @@ add_dependencies(basevar Buildhts)
 add_custom_target(
     Buildhts ALL
     COMMAND autoreconf -i && ./configure && make
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/htslib
+    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/htslib
 )
 
 set(COMMON_SYS_LIB pthread z bz2 m lzma curl)
 if (APPLE)
+    target_link_options(basevar PRIVATE "-Wl,-no_compact_unwind")
     target_link_libraries(basevar ${COMMON_SYS_LIB})
 else ()
     target_link_libraries(basevar ${COMMON_SYS_LIB} ssl crypto)
