@@ -21,6 +21,7 @@ link_libraries(${CMAKE_CURRENT_SOURCE_DIR}/htslib/libhts.a)  # link htslib stati
 
 # create executable basevar
 add_executable(basevar ${SRC_LIST})
+add_dependencies(basevar Buildhts)
 
 # Compile htslib
 add_custom_target(
