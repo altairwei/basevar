@@ -32,7 +32,7 @@ void BaseTypeRunner::set_arguments(int cmd_argc, char *cmd_argv[]) {
     _args = new BaseTypeARGS;
     
     // Parsing the commandline options. 
-    char c;
+    int c;
     while((c = getopt_long(cmd_argc, cmd_argv, "I:L:R:m:q:B:t:r:G:h", BASETYPE_CMDLINE_LOPTS, NULL)) >= 0) {
         // 字符流解决命令行参数转浮点等类型的问题
         std::stringstream ss(optarg ? optarg: "");  
@@ -55,7 +55,7 @@ void BaseTypeRunner::set_arguments(int cmd_argc, char *cmd_argv[]) {
             case '4': _args->smart_rerun             = true;     break;  // 恒参
             case 'h': std::cout << usage() << std::endl; exit(1);
             default: 
-                std::cerr << "Unknown argument: " << c << std::endl; 
+                std::cerr << "Unknown argument: " << char(c) << std::endl; 
                 exit(1);
         }
     }
