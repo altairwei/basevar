@@ -553,6 +553,7 @@ bool _variant_calling_unit(const std::vector<std::string> &batchfiles,
 
         // Get and check the sample id from batchfiles header.
         BGZF *f = bgzf_open(batchfiles[i].c_str(), "r");
+        bgzf_close(f);
         f = bgzf_open(batchfiles[i].c_str(), "r"); // open again
         batch_file_hds.push_back(f);               // record the file handle
 
